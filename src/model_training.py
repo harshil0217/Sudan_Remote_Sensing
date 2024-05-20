@@ -8,7 +8,7 @@ import keras
 from keras.models import Sequential
 from keras.layers import Dense
 import tensorflow as tf
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, classification_report
 from sklearn.preprocessing import MinMaxScaler
 
 # load the preprocessed data
@@ -28,7 +28,7 @@ adam = keras.optimizers.Adam(learning_rate=0.001)
 model.compile(loss='binary_crossentropy', optimizer=adam, metrics=["accuracy"])
 
 #train the model
-model.fit(X_train, y_train, epochs=100)
+model.fit(X_train, y_train, epochs=200)
 
 #evaluate the model
 loss_and_metrics = model.evaluate(X_test, y_test)
@@ -43,3 +43,5 @@ cm = confusion_matrix(y_test, preds)
 disp = ConfusionMatrixDisplay(confusion_matrix=cm)
 disp.plot()
 plt.show()
+plt.savefig('../images/confusion_matrix.png')
+print(classification_report(y_test, preds))
