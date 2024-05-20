@@ -28,7 +28,7 @@ adam = keras.optimizers.Adam(learning_rate=0.001)
 model.compile(loss='binary_crossentropy', optimizer=adam, metrics=["accuracy"])
 
 #train the model
-model.fit(X_train, y_train, epochs=200)
+model.fit(X_train, y_train, epochs=100)
 
 #evaluate the model
 loss_and_metrics = model.evaluate(X_test, y_test)
@@ -42,6 +42,5 @@ preds = np.round(preds)
 cm = confusion_matrix(y_test, preds)
 disp = ConfusionMatrixDisplay(confusion_matrix=cm)
 disp.plot()
-plt.show()
-plt.savefig('../images/confusion_matrix.png')
+plt.savefig('./images/confusion_matrix.png')
 print(classification_report(y_test, preds))
