@@ -6,7 +6,9 @@ import keras
 from keras.models import Sequential
 from keras.layers import Dense
 import tensorflow as tf
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, classification_report
+from sklearn.metrics import (confusion_matrix, ConfusionMatrixDisplay, classification_report, 
+                             roc_curve, roc_auc_score)
+
 
 # load the preprocessed data
 X_train, X_test, y_train, y_test = preprocess_data()
@@ -64,4 +66,14 @@ fig.legend(loc='upper right')
 
 plt.title('Loss and Accuracy')
 plt.savefig('./images/loss_accuracy.png')
+
+#create new plot and add AUC-ROC curve
+plt.figure()
+fpr, tpr, thresholds = roc_curve(y_test, preds)
+plt.plot(fpr, tpr, label='ROC curve (AUC = %0.2f)' % roc_auc_score(y_test, preds))
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('ROC Curve')
+plt.legend(loc="lower right")
+plt.savefig('./images/AUC_ROC.png')
 
